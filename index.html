@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Wrong Way | Can You Find the Best Route?</title>
+<meta name="description" content="One city. One destination. Countless ways to get there. Plot your route, hunt for shortcuts, and see how close you can get to the optimal path.">
+<link rel="canonical" href="https://thewrongway.fun/">
+<!-- Static value is what link-preview crawlers (Discord uses it as the embed stripe colour) read.
+     Real browsers get the charcoal/light value from the script below, before first paint. -->
+<meta name="theme-color" content="#32E6A1" id="metaTheme">
+
+<!-- Open Graph (Discord, Slack, Facebook, iMessage, etc.) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Wrong Way">
+<meta property="og:title" content="The Wrong Way | Can You Find the Best Route?">
+<meta property="og:description" content="One city. One destination. Countless ways to get there. Plot your route, hunt for shortcuts, and see how close you can get to the optimal path.">
+<meta property="og:url" content="https://thewrongway.fun/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://thewrongway.fun/preview.png">
+<meta property="og:image:secure_url" content="https://thewrongway.fun/preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Wrong Way: a dark city street map with a bright yellow route from a green A marker to a pink B marker, and the tagline Can you find the best route?">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Wrong Way | Can You Find the Best Route?">
+<meta name="twitter:description" content="One city. One destination. Countless ways to get there. Plot your route, hunt for shortcuts, and see how close you can get to the optimal path.">
+<meta name="twitter:image" content="https://thewrongway.fun/preview.png">
+<meta name="twitter:image:alt" content="The Wrong Way: a dark city street map with a bright yellow route from a green A marker to a pink B marker, and the tagline Can you find the best route?">
+
+<!-- Icons (relative paths so they also work if the site is ever served from a sub-path) -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script src="script.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<noscript><p style="padding:20px">The Wrong Way needs JavaScript to run.</p></noscript>
+
+<header class="topbar" id="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+    <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+  <a class="brand" href="#home" data-nav="home" aria-label="The Wrong Way — home">
+    <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="1" y="1" width="30" height="30" rx="9" fill="var(--raised)" stroke="var(--border)"/>
+      <path d="M5.5 19.5V17q0-1.2 1.2-1.5l3.6-1 2.3-3.4q.7-1 1.9-1h4.6q1.2 0 2 .9l2.6 3.4 2.4.7q1 .3 1 1.4v3Z" fill="var(--start)"/>
+      <circle cx="11" cy="20" r="2.6" fill="var(--surface)" stroke="var(--start)" stroke-width="1.6"/>
+      <circle cx="22" cy="20" r="2.6" fill="var(--surface)" stroke="var(--start)" stroke-width="1.6"/>
+      <path d="M9 25.6h14M12 23.6l-3 2 3 2" fill="none" stroke="var(--end)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="wm-small"><small>THE</small><b>WRONG <i>WAY</i></b></span>
+  </a>
+  <span class="spacer"></span>
+  <span class="mode-pill" id="modePill">Home</span>
+  <button class="icon-btn" id="settingsBtn" aria-label="Settings">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+  </button>
+</header>
+
+<div class="backdrop" id="backdrop"></div>
+<aside class="drawer" id="drawer" aria-label="Main menu" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="eyebrow">Navigate</div>
+    <button class="icon-btn" id="closeBtn" aria-label="Close menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <nav aria-label="Primary">
+    <button class="nav-item" data-nav="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</button>
+    <button class="nav-item" data-nav="daily"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Daily Challenge</button>
+    <button class="nav-item" data-nav="practice"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Practice Mode</button>
+    <button class="nav-item" data-nav="stats"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Statistics</button>
+    <button class="nav-item" data-nav="settings"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Settings</button>
+    <button class="nav-item" data-nav="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>About</button>
+  </nav>
+  <div class="drawer-foot">Made by <b>Xenfulz</b></div>
+</aside>
+
+<main id="main" tabindex="-1">
+
+<!-- ================= HOME ================= -->
+<section class="view" id="view-home">
+  <div class="hero">
+    <div>
+      <h1 class="wm-big"><span class="the">The</span>Wrong<br><span class="way">Way</span></h1>
+      <p class="tagline">Everyone knows where to go. <b>Can you find the best way?</b></p>
+      <div class="cta-row">
+        <button class="btn primary big" id="startBtn"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Start driving</button>
+        <button class="btn big" id="practiceBtn">Practice</button>
+      </div>
+      <div class="daily-chip" id="dailyChip"><span class="dot"></span><span id="dailyChipText">Daily challenge</span></div>
+    </div>
+    <div class="preview" aria-hidden="true">
+      <svg id="previewSvg" viewBox="0 0 1000 700"></svg>
+      <span class="tag">Procedurally generated city</span>
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="card step"><span class="n" style="color:var(--start)">A</span><div><h3>Trace the streets</h3><p>Click intersections or drag along the roads from the green pin. Your line snaps to the real street network.</p></div></div>
+    <div class="card step"><span class="n" style="color:var(--end)">B</span><div><h3>Reach the finish</h3><p>Every road is a graph edge with a true length. Undo, clear or reset until you're happy, then submit.</p></div></div>
+    <div class="card step"><span class="n" style="color:var(--optimal)">★</span><div><h3>See the best way</h3><p>Dijkstra's algorithm reveals the mathematically shortest route. Every extra metre costs you points.</p></div></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="card stat"><div class="mini" id="homeGauge"></div><div><div class="eyebrow">Best efficiency</div><div class="v" id="hsBest">—</div></div></div>
+    <div class="card stat"><div><div class="eyebrow">Challenges completed</div><div class="v" id="hsDone">0</div></div></div>
+    <div class="card stat"><div><div class="eyebrow">Daily streak</div><div class="v" id="hsStreak">0<small> days</small></div></div></div>
+  </div>
+</section>
+
+<!-- ================= GAME ================= -->
+<section class="view" id="view-game" hidden>
+  <div class="game-col">
+    <div class="game-head">
+      <div><div class="eyebrow" id="gMode">Daily challenge</div><h1 class="gtitle" id="gTitle">—</h1></div>
+      <div class="gh-right">
+        <div class="seg" id="diffSeg" role="group" aria-label="Difficulty">
+          <button data-diff="easy" aria-pressed="false">Easy</button>
+          <button data-diff="medium" aria-pressed="true">Medium</button>
+          <button data-diff="hard" aria-pressed="false">Hard</button>
+        </div>
+        <button class="btn" id="newMapBtn">New map</button>
+        <span class="badge" id="gBadge"></span>
+      </div>
+    </div>
+
+    <div class="map-frame" id="mapFrame">
+      <svg id="mapSvg" viewBox="0 0 1000 700" role="application" aria-label="City street map. Click or drag along connected streets from A to B."></svg>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="below">
+      <div id="controlsWrap">
+        <div class="dash">
+          <div class="card odo-card"><div class="eyebrow">Distance</div><div class="odo" id="odo" aria-live="off"></div></div>
+          <div class="card"><div class="eyebrow">Turns</div><div class="val" id="hTurns">0</div></div>
+          <div class="card"><div class="eyebrow">Junctions</div><div class="val" id="hJunc">0</div></div>
+          <div class="card"><div class="eyebrow">Status</div><div class="val sm" id="hStatus">AT START</div></div>
+        </div>
+        <div class="controls">
+          <button class="btn" id="undoBtn" title="Undo (Ctrl/Cmd+Z)"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Undo</button>
+          <button class="btn" id="clearBtn"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Clear route</button>
+          <button class="btn" id="resetBtn"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reset</button>
+          <span class="grow"></span>
+          <button class="btn primary" id="submitBtn"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Submit route</button>
+        </div>
+      </div>
+
+      <div class="result" id="result" hidden data-stage="1">
+        <div class="res-top">
+          <div><div class="eyebrow" id="resEyebrow">Route locked</div><div class="res-label" id="resLabel">Locked in</div></div>
+          <div class="res-lock"><span>Your distance<b id="rlDist">—</b></span><span>Turns<b id="rlTurns">—</b></span></div>
+        </div>
+        <div class="res-body">
+          <div class="gauge" id="gaugeBox"></div>
+          <div class="tiles">
+            <div class="tile you"><div class="eyebrow">Your distance</div><div class="tv" id="tDist">—</div></div>
+            <div class="tile opt"><div class="eyebrow">Optimal distance</div><div class="tv" id="tOpt">—</div></div>
+            <div class="tile extra"><div class="eyebrow">Extra distance</div><div class="tv" id="tExtra">—</div></div>
+            <div class="tile"><div class="eyebrow">Route efficiency</div><div class="tv" id="tEff">—</div></div>
+            <div class="tile pts"><div class="eyebrow">Points earned</div><div class="tv" id="tPts">—</div></div>
+            <div class="tile"><div class="eyebrow">Number of turns</div><div class="tv" id="tTurns">—</div></div>
+          </div>
+        </div>
+        <div class="legend"><span><i style="background:var(--route)"></i>Your route</span><span><i style="background:var(--optimal)"></i>Optimal route</span></div>
+        <div class="res-actions">
+          <button class="btn" id="replayBtn">Replay reveal</button>
+          <button class="btn" id="shareBtn">Copy result</button>
+          <button class="btn" id="retryBtn">Try this map again</button>
+          <button class="btn primary push" id="nextBtn">Next challenge</button>
+        </div>
+        <div class="res-note" id="resNote"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="view" id="view-stats" hidden>
+  <div class="page-head"><div class="eyebrow">Your driving record</div><h1>Statistics</h1></div>
+  <div id="statsBody"></div>
+</section>
+
+<!-- ================= SETTINGS ================= -->
+<section class="view" id="view-settings" hidden>
+  <div class="page-head"><div class="eyebrow">Make it yours</div><h1>Settings</h1></div>
+  <div class="card" style="max-width:760px">
+    <div class="setting"><div><h3>Theme</h3><p>Dark is the home turf. Light keeps the green and pink pins distinct.</p></div>
+      <div class="seg" id="themeSeg" role="group" aria-label="Theme"><button data-theme="dark">Dark</button><button data-theme="light">Light</button></div></div>
+    <div class="setting"><div><h3>Practice difficulty</h3><p>Used when you start a practice map.</p></div>
+      <div class="seg" id="setDiffSeg" role="group" aria-label="Practice difficulty"><button data-diff="easy">Easy</button><button data-diff="medium">Medium</button><button data-diff="hard">Hard</button></div></div>
+    <div class="setting"><div><h3>Junction hints</h3><p>Ring the intersections you can move to next.</p></div>
+      <button class="switch" id="swHints" role="switch" aria-checked="true" aria-label="Junction hints"></button></div>
+    <div class="setting"><div><h3>Building footprints</h3><p>Tiny buildings and parks inside the blocks. Turn off for a cleaner map.</p></div>
+      <button class="switch" id="swBuild" role="switch" aria-checked="true" aria-label="Building footprints"></button></div>
+    <div class="setting"><div><h3>Reduce motion</h3><p>Auto follows your system setting.</p></div>
+      <div class="seg" id="motionSeg" role="group" aria-label="Reduce motion"><button data-motion="auto">Auto</button><button data-motion="on">Reduce</button><button data-motion="off">Full</button></div></div>
+    <div class="setting"><div><h3>Sound effects</h3><p id="soundDesc">Short, quiet cues for drawing, undoing and submitting. Off until you turn it on.</p></div>
+      <button class="switch" id="swSound" role="switch" aria-checked="false" aria-label="Sound effects" data-snd="none"></button></div>
+    <div class="setting stack"><div><h3>Volume</h3><p>Master volume for all sound effects.</p></div>
+      <div class="vol"><input type="range" id="volRange" min="0" max="100" step="5" value="70" aria-label="Master volume" disabled><output id="volOut" for="volRange">70%</output></div></div>
+    <div class="setting"><div><h3>Reset all data</h3><p>Deletes every result, statistic and streak stored in this browser.</p></div>
+      <button class="btn danger" id="wipeBtn">Reset data</button></div>
+  </div>
+  <p class="eyebrow" id="storageNote" style="margin-top:14px"></p>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="view" id="view-about" hidden>
+  <div class="page-head"><div class="eyebrow">The Wrong Way</div><h1>About</h1></div>
+  <div class="card prose" style="max-width:760px">
+    <h2>The idea</h2>
+    <p>Two pins, one city, and a lot of tempting wrong turns. Draw the shortest route from <b style="color:var(--start)">A</b> to <b style="color:var(--end)">B</b> along the real streets. When you submit, the game runs Dijkstra's algorithm on the very same road graph and shows you the best way.</p>
+    <h2>How to play</h2>
+    <ul>
+      <li>Click a ringed intersection next to your line's end, or press and drag along the streets.</li>
+      <li>Dragging back over the previous junction undoes a step. Roads can't be skipped and routes can't loop.</li>
+      <li><kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Z</kbd> undoes. Clear and Reset never touch the map or the pins.</li>
+    </ul>
+    <h2>Scoring</h2>
+    <p><code>efficiency = optimal ÷ yours × 100</code> and <code>points = 1000 × (efficiency ÷ 100)²</code>. Any route as short as the optimal one scores a perfect 1,000. Distances are in fictional metres, derived from the street geometry.</p>
+    <h2>Modes</h2>
+    <p>The <b>Daily Challenge</b> is one deterministic city per local day, identical on refresh, saved in this browser only. <b>Practice</b> generates endless new maps and keeps its own statistics. Nothing syncs between devices.</p>
+    <h2>Credits</h2>
+    <p>Made by <b style="color:var(--text)">Xenfulz</b>. One HTML file, no libraries, no network.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">Made by <b>Xenfulz</b> · The Wrong Way</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle" aria-describedby="mText">
+    <h2 id="mTitle">Are you sure?</h2><p id="mText"></p>
+    <div class="modal-actions"><button class="btn" id="mCancel">Cancel</button><button class="btn danger" id="mOk">Confirm</button></div>
+  </div>
+</div>
+</body>
+</html>
