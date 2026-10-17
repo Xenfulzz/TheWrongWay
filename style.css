@@ -751,3 +751,16 @@ html[data-theme="light"] .dont-btn{color:#8F2218}
 @media(prefers-reduced-motion:reduce){
   .intro,.intro.leaving{transition:none}.intro-logo .i-dash{animation:none}.intro-bar i{animation:none;transform:none}.intro-go{animation:none;opacity:1}}
 html.rm .intro,html.rm .intro.leaving{transition:none}html.rm .intro-logo .i-dash{animation:none}html.rm .intro-bar i{animation:none;transform:none}html.rm .intro-go{animation:none;opacity:1}
+
+/* ---- link to Xenfulz's other projects and socials ---- */
+.xen-btn{flex:none;display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 16px;border-radius:var(--r-ctl);background:var(--optimal);color:#241800;text-decoration:none;
+  font-family:var(--display);font-weight:900;font-size:14.5px;letter-spacing:.01em;white-space:nowrap;
+  box-shadow:0 3px 0 color-mix(in srgb,var(--optimal) 55%,#000),0 8px 18px -8px color-mix(in srgb,var(--optimal) 70%,transparent);transition:transform .12s,box-shadow .12s}
+.xen-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+.xen-btn:hover{transform:translateY(-1px);box-shadow:0 4px 0 color-mix(in srgb,var(--optimal) 55%,#000),0 12px 22px -8px color-mix(in srgb,var(--optimal) 80%,transparent)}
+.xen-btn:hover svg{transform:translate(2px,-2px)}
+.xen-btn:active{transform:translateY(3px);box-shadow:0 0 0 transparent}
+.xen-btn:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+.xen-short{display:none}
+@media(max-width:560px){.xen-long{display:none}.xen-short{display:inline}.xen-btn{padding:0 12px;min-height:40px}}
+@media(max-width:360px){.xen-btn svg{display:none}.xen-btn{padding:0 10px;font-size:13.5px}}
